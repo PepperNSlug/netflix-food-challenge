@@ -51,26 +51,25 @@ class Foods {
 
 	// function def of render
 	renderFoods() {
+		const fragment = document.createDocumentFragment();
 		for (const dataObj of this.data) {
 			let div = document.createElement('div');
 			div.innerText = dataObj.image;
+			// old method of adding delete functionality to individual div
 			// div.addEventListener('click', function() {
 			// 	div.remove();
 			// });
 			fragment.appendChild(div);
 		}
-	}
-	deleteFoods() {
+		// new method of adding delte functionality to the root itself
 		this.root.addEventListener('click', (e) => {
-			console.log(e);
-
-			e.target.remove();
+			let { target } = e;
+			target.remove();
 		});
+		this.root.appendChild(fragment);
 	}
 }
 
 // render each food item inside food obj into the rootElement
 const foods = new Foods(rootElement, foodData);
-const fragment = document.createDocumentFragment();
 foods.renderFoods();
-rootElement.appendChild(fragment);
